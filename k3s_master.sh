@@ -77,6 +77,7 @@ $ helm install cert-manager --namespace cert-manager --version v1.16.1 jetstack/
 # Force install
 helm fetch rancher-latest/rancher --untar
 # change kubernetes version in rancher/Chart.yaml
+# bootstrapPassword just for a demo
 helm install rancher ./rancher \
   --namespace cattle-system \
   --set hostname=k8s.assetsart.com \
