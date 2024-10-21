@@ -13,8 +13,6 @@ service-cidr: 20.43.0.0/16
 cluster-dns: 20.43.0.10
 disable:
   - traefik
-  - servicelb
-  - local-storage
 disable-kube-proxy: true
 disable-network-policy: true
 kubelet-arg:
@@ -50,7 +48,10 @@ cilium install --version 1.16.3  \
   --set ingressController.loadbalancerMode=shared \
   --set loadBalancer.l7.backend=envoy \
   --set k8sServiceHost=10.130.0.3 \
-  --set k8sServicePort=6443
+  --set k8sServicePort=6443 \
+  --set hubble.metrics.enableOpenMetrics=true \
+  --set hubble.metrics.enabled="{dns,drop,tcp,flow,port-distribution,icmp,httpV2:exemplars=true;labelsContext=source_ip\,source_namespace\,source_workload\,destination_ip\,destination_namespace\,destination_workload\,traffic_direction}"
+
 
 # Note: k8sServiceHost ควรใช้ LoadBalancer
 # 10.130.0.3 -> 10.130.0.4
