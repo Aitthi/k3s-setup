@@ -13,11 +13,11 @@ service-cidr: 20.43.0.0/16
 cluster-dns: 20.43.0.10
 disable:
   - traefik
+  - servicelb
 disable-kube-proxy: true
 disable-network-policy: true
 kubelet-arg:
   - "max-pods=210"
-  - "node-ip=10.130.0.4"
 EOT
 
 # Install k3s
