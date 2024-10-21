@@ -87,6 +87,8 @@ cluster-dns: 20.43.0.10
 disable:
   - traefik
   - servicelb
+  - local-storage
+  - metrics-server
 disable-kube-proxy: true
 disable-network-policy: true
 kubelet-arg:
