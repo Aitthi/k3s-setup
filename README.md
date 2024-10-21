@@ -88,7 +88,6 @@ disable:
   - traefik
   - servicelb
   - local-storage
-  - metrics-server
 disable-kube-proxy: true
 disable-network-policy: true
 kubelet-arg:
