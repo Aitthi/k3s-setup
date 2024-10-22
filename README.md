@@ -104,15 +104,6 @@ sudo tar xzvfC cilium-linux-${CLI_ARCH}.tar.gz /usr/local/bin
 rm cilium-linux-${CLI_ARCH}.tar.gz
 
 ## Install
-# cilium install --version 1.16.3 \
-#    --set prometheus.enabled=true \
-#    --set operator.prometheus.enabled=true \
-#    --set hubble.enabled=true \
-#    --set hubble.metrics.enableOpenMetrics=true \
-#    --set hubble.metrics.enabled="{dns,drop,tcp,flow,port-distribution,icmp,httpV2:exemplars=true;labelsContext=source_ip\,source_namespace\,source_workload\,destination_ip\,destination_namespace\,destination_workload\,traffic_direction}"
-
-
-## Install
 cilium install --version 1.16.3  \
   --set prometheus.enabled=true \
   --set operator.prometheus.enabled=true \
@@ -120,9 +111,14 @@ cilium install --version 1.16.3  \
   --set ingressController.enabled=true \
   --set ingressController.loadbalancerMode=shared \
   --set loadBalancer.l7.backend=envoy \
-  --set k8sServiceHost=10.130.0.3 \
+  --set k8sServiceHost=10.100.2.28 \
   --set k8sServicePort=6443 \
   --set hubble.metrics.enableOpenMetrics=true \
+  --set gatewayAPI.enabled=true \
+  --set egressGateway.enabled=true \
+  --set bpf.masquerade=true \
+  --set hubble.relay.enabled=true \
+  --set hubble.ui.enabled=true \
   --set hubble.metrics.enabled="{dns,drop,tcp,flow,port-distribution,icmp,httpV2:exemplars=true;labelsContext=source_ip\,source_namespace\,source_workload\,destination_ip\,destination_namespace\,destination_workload\,traffic_direction}"
 
 # Note: k8sServiceHost ควรใช้ LoadBalancer
