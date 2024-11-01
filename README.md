@@ -133,7 +133,7 @@ cilium install --version 1.16.3  \
   --set hubble.metrics.enabled="{dns,drop,tcp,flow,port-distribution,icmp,httpV2:exemplars=true;labelsContext=source_ip\,source_namespace\,source_workload\,destination_ip\,destination_namespace\,destination_workload\,traffic_direction}"
 
 # ถ้า cilium gateway ไม่สร้าง
-# [install/kubernetes/cilium/templates/cilium-gateway-api-class.yaml](https://github.com/cilium/cilium/blob/main/install/kubernetes/cilium/templates/cilium-gateway-api-class.yaml)
+# https://github.com/cilium/cilium/blob/main/install/kubernetes/cilium/templates/cilium-gateway-api-class.yaml
 
 # Note: k8sServiceHost ควรใช้ LoadBalancer
 # 10.130.0.3 -> 10.130.0.4
