@@ -113,6 +113,9 @@ cilium install --version 1.16.3  \
   --set loadBalancer.l7.backend=envoy \
   --set k8sServiceHost=10.100.2.28 \
   --set k8sServicePort=6443 \
+  --set ipam.mode=kubernetes \
+  --set k8s.requireIPv4PodCIDR=true \
+  --set k8s.requireIPv6PodCIDR=false \
   --set hubble.metrics.enableOpenMetrics=true \
   --set gatewayAPI.enabled=true \
   --set egressGateway.enabled=true \
