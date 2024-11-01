@@ -95,6 +95,14 @@ EOT
 # Install k3s
 curl -sfL https://get.k3s.io | INSTALL_K3S_VERSION="v1.31.1+k3s1" INSTALL_K3S_EXEC="server" sh -s -
 
+kubectl apply -f https://raw.githubusercontent.com/kubernetes-sigs/gateway-api/v1.2.0/config/crd/standard/gateway.networking.k8s.io_gatewayclasses.yaml
+kubectl apply -f https://raw.githubusercontent.com/kubernetes-sigs/gateway-api/v1.2.0/config/crd/standard/gateway.networking.k8s.io_gateways.yaml
+kubectl apply -f https://raw.githubusercontent.com/kubernetes-sigs/gateway-api/v1.2.0/config/crd/standard/gateway.networking.k8s.io_httproutes.yaml
+kubectl apply -f https://raw.githubusercontent.com/kubernetes-sigs/gateway-api/v1.2.0/config/crd/standard/gateway.networking.k8s.io_referencegrants.yaml
+kubectl apply -f https://raw.githubusercontent.com/kubernetes-sigs/gateway-api/v1.2.0/config/crd/standard/gateway.networking.k8s.io_grpcroutes.yaml
+kubectl apply -f https://raw.githubusercontent.com/kubernetes-sigs/gateway-api/v1.2.0/config/crd/experimental/gateway.networking.k8s.io_tlsroutes.yaml
+
+
 # Networking
 CILIUM_CLI_VERSION=$(curl -s https://raw.githubusercontent.com/cilium/cilium-cli/main/stable.txt)
 CLI_ARCH=amd64
@@ -124,10 +132,12 @@ cilium install --version 1.16.3  \
   --set hubble.ui.enabled=true \
   --set hubble.metrics.enabled="{dns,drop,tcp,flow,port-distribution,icmp,httpV2:exemplars=true;labelsContext=source_ip\,source_namespace\,source_workload\,destination_ip\,destination_namespace\,destination_workload\,traffic_direction}"
 
+# ถ้า cilium gateway ไม่สร้าง
+# install/kubernetes/cilium/templates/cilium-gateway-api-class.yaml
+
 # Note: k8sServiceHost ควรใช้ LoadBalancer
 # 10.130.0.3 -> 10.130.0.4
 #           -> 10.130.0.5
-
 
 # helm
 curl https://baltocdn.com/helm/signing.asc | gpg --dearmor | tee /usr/share/keyrings/helm.gpg > /dev/null
@@ -141,11 +151,11 @@ apt-get install helm
 # https://artifacthub.io/packages/helm/cert-manager/cert-manager#configuration
 kubectl apply -f https://github.com/cert-manager/cert-manager/releases/download/v1.16.1/cert-manager.crds.yaml
 ## Add the Jetstack Helm repository
-$ helm repo add jetstack https://charts.jetstack.io --force-update
+helm repo add jetstack https://charts.jetstack.io --force-update
 
 ## Install the cert-manager helm chart
 kubectl create namespace cert-manager
-$ helm install cert-manager --namespace cert-manager --version v1.16.1 jetstack/cert-manager
+helm install cert-manager --namespace cert-manager --version v1.16.1 jetstack/cert-manager
 
 # Force install
 helm fetch rancher-latest/rancher --untar
